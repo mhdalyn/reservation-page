@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { placeReservation } from "../utils/api";
 import ErrorAlert from "./ErrorAlert";
 
 export default function ReservationCreator() {
     const history = useHistory()
-    let err = null;
     const initialForm = {
         first_name: "", last_name: "", mobile_number: "", reservation_date: "", reservation_time: "", people: "1"
     }
+    const [error, setError] = useState(null)
     const [form, setForm] = useState(initialForm)
     const changeHandler = ({ target }) => {
         setForm({ ...form, [target.name]: target.value })
     }
     async function submitHandler(event) {
-        event.preventDefault();
-        
+        event.preventDefault();       
+        try {await placeReservation(form)}
+        catch (err){setError(err)}
         history.push(`/dashboard?date=${form.reservation_date}`)
     }
     async function cancelHandler(event) {
@@ -23,7 +25,7 @@ export default function ReservationCreator() {
     }
     return (
         <div>
-            <ErrorAlert error={err}/>
+            <ErrorAlert error={error}/>
             <form onSubmit={submitHandler}>
                 <div>
                     <label htmlFor="first_name">First Name</label>

@@ -55,19 +55,19 @@ async function fetchJson(url, options, onCancel) {
 /**
  * Saves reservation to the database
  * Form ensures that params are not null & further validation is done in back-end
- * @param form
+ * @param reservation
  * the reservation to save
  * @param signal
  * optional AbortController.signal
  * @returns {Promise<reservation>}
  * a promise that resolves the saved reservation
  */
-export async function placeReservation(form, signal) {
-  const url = `${API_BASE_URL}`
+export async function placeReservation(reservation, signal) {
+  const url = `${API_BASE_URL}/reservations`
   const options = {
     method: "POST",
     headers,
-    body: JSON.stringify(form),
+    body: JSON.stringify({data: reservation}),
     signal,
   }
   return await fetchJson(url,options, {})
