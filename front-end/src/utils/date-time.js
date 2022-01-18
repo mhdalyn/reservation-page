@@ -81,5 +81,5 @@ function asDateString(date) {
   return asDateString(date);
 }
 module.exports = {
-  next, previous, today, formatAsTime, formatAsDate
+  next, previous, today, formatAsTime, formatAsDate,
 }
