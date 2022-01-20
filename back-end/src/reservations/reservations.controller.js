@@ -1,4 +1,4 @@
-import { formatAsDate, formatAsTime, today } from ("../date-time");
+const { formatAsDate, formatAsTime, today } = require("../date-time");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
 /**
