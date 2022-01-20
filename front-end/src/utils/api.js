@@ -80,7 +80,6 @@ export async function placeReservation(reservation, signal) {
  */
 
 export async function listReservations(params, signal) {
-  console.log(API_BASE_URL)
   const url = new URL(`${API_BASE_URL}/reservations`);
   Object.entries(params).forEach(([key, value]) =>
     url.searchParams.append(key, value.toString())
