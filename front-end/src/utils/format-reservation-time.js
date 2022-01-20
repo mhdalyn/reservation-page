@@ -1,4 +1,4 @@
-import { formatAsTime } from "./date-time";
+const { formatAsTime } = require( "./date-time" );
 
 function formatTime(reservation) {
   reservation.reservation_time = formatAsTime(reservation.reservation_time);
