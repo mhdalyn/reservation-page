@@ -19,6 +19,7 @@ export default function ReservationCreator() {
         event.preventDefault();
         try {
             const day = new Date(`${form.reservation_date} ${form.reservation_time}`);
+            if (form.reservation_time < "10:30" || form.reservation_time > "21:30") throw new Error("Available reservation hours are 10:30am to 9:30pm")
             if (day < new Date()) throw new Error("Reservation must be for the future")
             if (day.getDay() === 2) throw new Error("Sorry, Periodic Tables is closed on Tuesdays")
             form.people = parseInt(form.people)

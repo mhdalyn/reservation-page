@@ -29,6 +29,7 @@ async function validateRezzo(req, res, next) {
       message: `people must be a number`
     })
   }
+  if (reservation.reservation_time < "10:30" || reservation.reservation_time > "21:30") return next({status:400,message:"Available reservation hours are 10:30am to 9:30pm"})
   const day = new Date(`${reservation.reservation_date} ${reservation.reservation_time}`);
   if (day < new Date()) return next({status:400, message:"Reservation must be for the future"})
   if (day.getDay() === 2) return next({status:400, message:"Sorry, Periodic Tables is closed on Tuesdays"})
