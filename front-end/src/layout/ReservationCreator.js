@@ -16,12 +16,16 @@ export default function ReservationCreator() {
     }
 
     async function submitHandler(event) {
-        event.preventDefault();              
-        form.people = parseInt(form.people)
+        event.preventDefault();
         try {
-            await placeReservation(form)}
-        catch (err){setError(err)}
-        history.push(`/dashboard?date=${form.reservation_date}`)
+            const day = new Date(`${form.reservation_date} ${form.reservation_time}`);
+            if (day < new Date()) throw new Error("Reservation must be for the future")
+            if (day.getDay() === 2) throw new Error("Sorry, Periodic Tables is closed on Tuesdays")
+            form.people = parseInt(form.people)
+            await placeReservation(form)
+            history.push(`/dashboard?date=${form.reservation_date}`)
+        }
+        catch (err) { setError(err) }
     }
 
     async function cancelHandler(event) {
@@ -31,7 +35,7 @@ export default function ReservationCreator() {
 
     return (
         <div>
-            <ErrorAlert error={error}/>
+            <ErrorAlert error={error} />
             <ReservationForm changeHandler={changeHandler} form={form} submitHandler={submitHandler} cancelHandler={cancelHandler} />
         </div>
     );
