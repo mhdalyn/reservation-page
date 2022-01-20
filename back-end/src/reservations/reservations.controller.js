@@ -29,6 +29,9 @@ async function validateRezzo(req, res, next) {
       message: `people must be a number`
     })
   }
+  const day = new Date(`${reservation.reservation_date} ${reservation.reservation_time}`);
+  if (day < new Date()) return next({status:400, message:"Reservation must be for the future"})
+  if (day.getDay() === 2) return next({status:400, message:"Sorry, Periodic Tables is closed on Tuesdays"})
   if (!Number.isInteger(Date.parse(reservation.reservation_date))) {
     return next({
       status: 400,
