@@ -3,7 +3,7 @@ import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import Calendar from "./Calendar";
 import useQuery from "../utils/useQuery";
-const { next, previous, today } = require ("../utils/date-time");
+import { previous, today, next } from "../utils/date-time";
 
 /**
  * Defines the dashboard page.
