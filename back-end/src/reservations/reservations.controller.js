@@ -5,7 +5,7 @@ const service = require("./reservations.service")
  * List handler for reservation resources
  */
 async function list(req, res, next) {
-  const displayDate = req.query.date;
+  let displayDate = req.query.date;
   if (!displayDate) displayDate = today();
   res.json({
     data: await service.list(displayDate),
