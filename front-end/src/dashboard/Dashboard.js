@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import Calendar from "./Calendar";
-import { next, previous, today } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
+const { next, previous, today } = require ("../utils/date-time");
 
 /**
  * Defines the dashboard page.

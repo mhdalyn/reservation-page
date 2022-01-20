@@ -1,4 +1,4 @@
-const { formatAsDate, formatAsTime, today } = require("../../../front-end/src/utils/date-time");
+const { formatAsDate, formatAsTime, today } = require("../date-time");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
 /**
