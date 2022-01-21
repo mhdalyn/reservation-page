@@ -2,7 +2,7 @@ import React from "react"
 
 export default function TablesTable({ tables }) {
     const tableContents = tables.map(table=>{ return (
-        <tr>
+        <tr key={table.table_id}>
             <td>{table.table_name}</td>
             <td data-table-id-status={table.table_id} >{(table.reservation_id)?"Occupied":"Free"}</td>
             <td>{table.capacity}</td>
@@ -16,6 +16,6 @@ export default function TablesTable({ tables }) {
                 <th>Table Capacity</th>
             </tr>
         </thead>
-        {tableContents}
+        <tbody>{tableContents}</tbody>
     </table>)
 }

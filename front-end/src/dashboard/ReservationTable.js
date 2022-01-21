@@ -6,7 +6,7 @@ export default function ReservationTable({ reservations }) {
     const tableContents = reservations.map(reservation=>{ 
         const {reservation_id} = reservation
         return (
-        <tr>
+        <tr key={reservation_id}>
             <td>{reservation.first_name}</td>
             <td>{reservation.last_name}</td>
             <td>{reservation.mobile_number}</td>
@@ -27,6 +27,6 @@ export default function ReservationTable({ reservations }) {
                 <th>Party Size</th>
             </tr>
         </thead>
-        {tableContents}
+        <tbody>{tableContents}</tbody>
     </table>)
 }
