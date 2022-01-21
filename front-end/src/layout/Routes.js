@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "../dashboard/Dashboard";
 import NotFound from "./NotFound";
-import ReservationCreator from "./ReservationCreator";
+import ReservationCreator from "../reservations/ReservationCreator";
 import { today } from "../utils/date-time";
 import TableCreator from "../tables/TableCreator";
 
@@ -28,7 +28,7 @@ function Routes() {
       <Route path="/reservations/new">
         <ReservationCreator />
       </Route>
-      <Route path="tables/new">
+      <Route path="/tables/new">
         <TableCreator />
       </Route>
       <Route>

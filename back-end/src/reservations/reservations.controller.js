@@ -12,6 +12,23 @@ async function list(req, res, next) {
   });
 }
 
+async function ReservationExists(req,res,next) {
+  const { reservation_Id } = req.params;
+  const foundReservation = await service.read(reservation_Id)
+  if (foundReservation) {
+      res.locals.reservation = foundReservation
+      return next();
+  };
+  return next({
+      status: 404,
+      message: `Reservation does not exist: ${reservation_Id}`
+  });
+}
+
+function read(req,res,next) {
+  res.json({data:res.locals.reservation})
+}
+
 async function validateRezzo(req, res, next) {
   const { data: reservation = {} } = req.body;
   const requiredFields = ["first_name", "last_name", "mobile_number", "reservation_date", "reservation_time", "people"]
@@ -58,5 +75,6 @@ async function createRezzo(req, res, next) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  create: [asyncErrorBoundary(validateRezzo), createRezzo]
+  create: [asyncErrorBoundary(validateRezzo), asyncErrorBoundary(createRezzo)],
+  read: [asyncErrorBoundary(ReservationExists),read]
 };

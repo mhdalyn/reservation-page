@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import Calendar from "./Calendar";
 import useQuery from "../utils/useQuery";
 import { previous, today, next } from "../utils/date-time";
 
@@ -37,7 +36,6 @@ function Dashboard({ date }) {
       <button onClick={()=>setCurrentDate(previous(currentDate))}>Previous</button>
       <button onClick={()=>setCurrentDate(today())}>Today</button>
       <button onClick={()=>setCurrentDate(next(currentDate))}>Next</button>
-      <Calendar />
       {JSON.stringify(reservations)}
     </main>
   );

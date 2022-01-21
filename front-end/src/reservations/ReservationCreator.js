@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import ReservationForm from "../reservations/ReservationForm";
 import { placeReservation } from "../utils/api";
-import ErrorAlert from "./ErrorAlert";
+import ErrorAlert from "../layout/ErrorAlert";
 
 export default function ReservationCreator() {
     const history = useHistory()
@@ -18,17 +18,10 @@ export default function ReservationCreator() {
     async function submitHandler(event) {
         event.preventDefault();
         try {
-            //checks if reservation is made for a time within available hours, is not in the past using new Date (which creates an object for now by default), and is not on a Tuesday before allowing submission
-            const day = new Date(`${form.reservation_date} ${form.reservation_time}`);
-            if (form.reservation_time < "10:30" || form.reservation_time > "21:30") throw new Error("Available reservation hours are 10:30am to 9:30pm")
-            if (day < new Date()) throw new Error("Reservation must be for the future")
-            if (day.getDay() === 2) throw new Error("Sorry, Periodic Tables is closed on Tuesdays")
-
             form.people = parseInt(form.people)
             await placeReservation(form)
             history.push(`/dashboard?date=${form.reservation_date}`)
-        }
-        catch (err) { setError(err) }
+        } catch (err) { setError(err) }
     }
 
     async function cancelHandler(event) {
