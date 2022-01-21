@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import ReservationForm from "../common/ReservationForm";
+import ReservationForm from "../reservations/ReservationForm";
 import { placeReservation } from "../utils/api";
 import ErrorAlert from "./ErrorAlert";
 
