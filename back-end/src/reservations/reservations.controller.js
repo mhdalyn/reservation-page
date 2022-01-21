@@ -77,4 +77,5 @@ module.exports = {
   list: asyncErrorBoundary(list),
   create: [asyncErrorBoundary(validateRezzo), asyncErrorBoundary(createRezzo)],
   read: [asyncErrorBoundary(ReservationExists),read]
+  
 };
