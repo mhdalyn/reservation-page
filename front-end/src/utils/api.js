@@ -113,5 +113,5 @@ export async function seatTable(reservation_id,table_id, signal) {
     body:JSON.stringify({data: {reservation_id}}),
     signal,
   }
-  return await fetch(url, options, {})
+  return await fetchJson(url, options, {})
 }

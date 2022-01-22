@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import ErrorAlert from "../layout/ErrorAlert";
 import { seatTable, listTables } from "../utils/api";
-import SeaterForm from "../utils/SeaterForm";
+import SeaterForm from "./SeaterForm";
 
 export default function ReservationSeater() {
     const { reservation_id } = useParams();
@@ -17,13 +17,18 @@ export default function ReservationSeater() {
         return ()=> abortController.abort();
     }, [])
 
+    useEffect(()=>{
+        if (tables.length) setSelected(tables[0].table_id)
+    }, [tables])
+
     async function submitHandler(event) {
         event.preventDefault();
         try {
             await seatTable(reservation_id, selected);
             history.push(`/dashboard`)
-        } catch (error) { setError(error) }
+        } catch (err) { setError(err) }
     }
+    
     async function cancelHandler(event) {
         event.preventDefault();
         history.goBack();

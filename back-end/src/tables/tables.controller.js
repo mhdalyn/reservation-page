@@ -65,9 +65,10 @@ async function seat(req,res,next) {
   const {reservation} = res.locals ; 
   const {table} = res.locals
   if (table.capacity < reservation.people) return next({status:400, message:"Sorry, that table does not have enough capacity to accomodate your party"})
-  if (table.reservation_id) return next({status:400, message:"Sorry, that table is already occupied"})
+  if (table.reservation_id) {
+    return next({status:400, message:"Sorry, that table is already occupied"})}
   await service.put(table, reservation.reservation_id);
-  res.sendStatus(200);
+  res.json({data: "who cares"});
 }
 
 module.exports = {
