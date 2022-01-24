@@ -46,7 +46,7 @@ function Dashboard({ date }) {
       <button onClick={()=>setCurrentDate(next(currentDate))}>Next</button>
       <ReservationTable reservations={reservations} />
       <ErrorAlert error={tablesError} />
-      <TablesTable tables={tables} setTables={setTables} setErr={setTablesError} />
+      <TablesTable tables={tables} loadDashboard={loadDashboard} setErr={setTablesError} />
     </main>
   );
 };

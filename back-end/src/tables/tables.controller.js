@@ -2,6 +2,7 @@ const e = require("cors");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./tables.service")
 const reservationService = require("../reservations/reservations.service")
+const reservationController = require("../reservations/reservations.controller")
 /**
  * List handler for reservation resources
  */
@@ -62,13 +63,14 @@ async function createTable(req, res, next) {
 }
 
 async function seat(req, res, next) {
-  const { reservation } = res.locals;
-  const { table } = res.locals
+  const { reservation, table } = res.locals;
   if (table.capacity < reservation.people) return next({ status: 400, message: "Sorry, that table does not have enough capacity to accomodate your party" })
   if (table.reservation_id) {
     return next({ status: 400, message: "Sorry, that table is already occupied" })
   }
+  if (reservation.status === "seated") return next({status:400, message:"That table is already seated"})
   await service.put(table, reservation.reservation_id);
+  await reservationService.changeStatus(reservation.reservation_id, "seated")
   res.json({ data: "who cares" });
 }
 
@@ -76,7 +78,8 @@ async function finishTable(req, res, next) {
   const {table} = res.locals;
   if(!table.reservation_id) return next({status:400, message: "That table is currently not occupied."})
   await service.put(table);
-  res.json({data: "You're all clear, kid! Now let's blow this thing and go home!"});
+  await reservationService.changeStatus(table.reservation_id, "finished")
+  res.json({data: table.reservation_id});
 }
 
 

@@ -1,21 +1,18 @@
 import React from "react"
-import { listTables, finishTable } from "../utils/api"
+import {finishTable} from "../utils/api"
 
-export default function TablesTable({ tables, setTables, setErr }) {
+export default function TablesTable({ tables, loadDashboard, setErr }) {
     async function finishHandler(event) {
-        console.log(event.target.id)
         try {if(window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
             const table_id = event.target.id;
             await finishTable(table_id);
-            const updatedTables = await listTables()
-            setTables(updatedTables)
-            setErr(null)
+            loadDashboard()
         }
         }catch (err) {setErr(err)}
     }
 
     const tableContents = tables.map(table=>{ return (
-        <tr key={table.table_id}>
+        <tr key={table.table_id} id={table.table_id}>
             <td>{table.table_name}</td>
             <td data-table-id-status={table.table_id} >{(table.reservation_id)?"Occupied":"Free"}</td>
             <td>{table.capacity}</td>

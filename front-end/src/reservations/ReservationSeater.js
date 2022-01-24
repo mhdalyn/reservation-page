@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import ErrorAlert from "../layout/ErrorAlert";
-import { seatTable, listTables } from "../utils/api";
+import { seatTable, listTables} from "../utils/api";
 import SeaterForm from "./SeaterForm";
 
 export default function ReservationSeater() {
