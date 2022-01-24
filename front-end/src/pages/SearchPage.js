@@ -22,9 +22,9 @@ export default function SearchPage() {
     return (<div>
         <ErrorAlert error={error} />
         <form onSubmit={submitHandler}>
-        <input name="mobile number" type="tel" required placeholder="Enter a customer's phone number" value={mobile_number} onChange={changeHandler} />
+        <input name="mobile_number" type="tel" required placeholder="Enter a customer's phone number" value={mobile_number} onChange={changeHandler} />
         <button type="submit">Find</button>
         </form>
-        <ReservationTable reservations={reservations} nullMessage="No matches for this phone number" />
+        <ReservationTable reservations={reservations} nullMessage="No reservations found" />
     </div>)
 }
