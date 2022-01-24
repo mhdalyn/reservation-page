@@ -24,6 +24,7 @@ function Dashboard({ date }) {
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);
+    setTablesError(null);
     listReservations({ date: currentDate }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
@@ -45,7 +46,7 @@ function Dashboard({ date }) {
       <button onClick={()=>setCurrentDate(next(currentDate))}>Next</button>
       <ReservationTable reservations={reservations} />
       <ErrorAlert error={tablesError} />
-      <TablesTable tables={tables} />
+      <TablesTable tables={tables} setTables={setTables} setErr={setTablesError} />
     </main>
   );
 };

@@ -11,13 +11,18 @@ function read(table_id) {
     return knex("tables").select("*").where({table_id}).first()
 }
 
-function put(table, reservation_id) {
-    return knex("tables").update({"reservation_id": reservation_id}).where({"table_id":table.table_id})
+function put(table, reservation_id = null) {
+    return knex("tables").where({"table_id":table.table_id}).update({"reservation_id": reservation_id})
+}
+
+function destroy(reservation_id) {
+    return knex("reservations").where({reservation_id}).del();
 }
 
 module.exports = {
     list,
     create,
     read,
-    put
+    put,
+    destroy
 }

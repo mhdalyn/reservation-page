@@ -9,7 +9,7 @@
  const controller = require("./tables.controller");
  
  router.route("/").get(controller.list).post(controller.create).all(methodNotAllowed);
- router.route("/:table_id/seat").put(controller.seat).all(methodNotAllowed);
+ router.route("/:table_id/seat").put(controller.seat).delete(controller.finishTable).all(methodNotAllowed);
  
  module.exports = router;
  
