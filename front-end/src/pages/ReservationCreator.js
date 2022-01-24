@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import ReservationForm from "../reservations/ReservationForm";
-import { placeReservation } from "../utils/api";
+import ReservationForm from "../components/reservations/ReservationForm";
 import ErrorAlert from "../layout/ErrorAlert";
+import { placeReservation } from "../utils/api";
 
 export default function ReservationCreator() {
     const history = useHistory()

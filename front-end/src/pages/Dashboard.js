@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { listReservations, listTables } from "../utils/api";
-import ErrorAlert from "../layout/ErrorAlert";
+import React, {useEffect, useState} from "react";
 import useQuery from "../utils/useQuery";
-import { previous, today, next } from "../utils/date-time";
-import ReservationTable from "./ReservationTable";
-import TablesTable from "./TablesTable";
+import ErrorAlert from "../layout/ErrorAlert";
+import ReservationTable from "../components/reservations/ReservationTable";
+import TablesTable from "../components/tables/TablesTable";
+import { today, previous, next } from "../utils/date-time";
+import { listReservations, listTables } from "../utils/api";
 
 /**
  * Defines the dashboard page.
@@ -44,7 +44,7 @@ function Dashboard({ date }) {
       <button onClick={()=>setCurrentDate(previous(currentDate))}>Previous</button>
       <button onClick={()=>setCurrentDate(today())}>Today</button>
       <button onClick={()=>setCurrentDate(next(currentDate))}>Next</button>
-      <ReservationTable reservations={reservations} />
+      <ReservationTable reservations={reservations} nullMessage="No reservations have been made for this date" />
       <ErrorAlert error={tablesError} />
       <TablesTable tables={tables} loadDashboard={loadDashboard} setErr={setTablesError} />
     </main>

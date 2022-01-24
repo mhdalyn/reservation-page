@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-export default function ReservationTable({ reservations }) {
-    if (!reservations.length) return (<div>No reservations have been made for this date</div>)
+export default function ReservationTable({ reservations , nullMessage }) {
+    if (!reservations.length) return (<div>{nullMessage}</div>)
     const tableContents = reservations.map(reservation=>{ 
         const {reservation_id} = reservation
         return ((reservation.status!=="finished")?

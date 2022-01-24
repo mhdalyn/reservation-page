@@ -1,5 +1,5 @@
 import React from "react"
-import {finishTable} from "../utils/api"
+import {finishTable} from "../../utils/api"
 
 export default function TablesTable({ tables, loadDashboard, setErr }) {
     async function finishHandler(event) {

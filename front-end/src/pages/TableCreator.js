@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useHistory } from "react-router";
 import ErrorAlert from "../layout/ErrorAlert";
 import { createTable } from "../utils/api";
-import TableForm from "./TableForm";
+import TableForm from "../components/tables/TableForm";
 
 export default function TableCreator() {
     const history = useHistory()

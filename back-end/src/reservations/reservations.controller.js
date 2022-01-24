@@ -5,11 +5,15 @@ const service = require("./reservations.service")
  * List handler for reservation resources
  */
 async function list(req, res, next) {
-  let displayDate = req.query.date;
-  if (!displayDate) displayDate = today();
-  res.json({
+  const mobile_number = req.query.mobile_number;
+  const displayDate = req.query.date;
+  if (mobile_number) {
+    return res.json({
+      data: await service.listPhone(mobile_number)
+    })
+  } else {res.json({
     data: await service.list(displayDate),
-  });
+  });}
 }
 
 async function ReservationExists(req,res,next) {
