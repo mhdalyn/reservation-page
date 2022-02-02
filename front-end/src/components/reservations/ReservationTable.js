@@ -1,8 +1,18 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { cancelReservation, listReservations } from "../../utils/api";
 
-export default function ReservationTable({ reservations , nullMessage }) {
+export default function ReservationTable({ reservations , nullMessage , setReservations , mobile_number, date}) {
     if (!reservations.length) return (<div>{nullMessage}</div>)
+
+    async function cancelHandler(event) {
+        event.preventDefault();
+        if (window.confirm("Do you want to cancel this reservation? This cannot be undone.")) {
+            await cancelReservation(event.target.id);
+            setReservations(await listReservations((mobile_number)?{mobile_number:mobile_number}:{date:date}))
+        }
+    }
+
     const tableContents = reservations.map(reservation=>{ 
         const {reservation_id} = reservation
         return ((reservation.status!=="finished")?
@@ -15,6 +25,8 @@ export default function ReservationTable({ reservations , nullMessage }) {
             <td>{reservation.people}</td>
             <td data-reservation-id-status={reservation.reservation_id} >{reservation.status}</td>
             {(reservation.status==="booked")?<Link to={`/reservations/${reservation_id}/seat`}> Seat </Link>:null}
+            {(reservation.status!=="cancelled")?<><td><Link to={`/reservations/${reservation_id}/edit`} href={`/reservations/${reservation_id}/edit`} >Edit</Link></td>
+            <td><button data-reservation-id-cancel={reservation.reservation_id} id={reservation_id} onClick={cancelHandler} >Cancel</button></td></>:null}
         </tr>
     :null)})
     return (<table>

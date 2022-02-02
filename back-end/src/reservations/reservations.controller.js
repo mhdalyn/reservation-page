@@ -86,16 +86,23 @@ async function validateStatus(req,res,next) {
 
 async function changeStatus(req,res,next) {
   const {status} = req.body.data
-  if (status !== "booked" && status !=="seated" && status!=="finished") return next({status:400, message:"Cannot update to an unknown reservation status"})
+  if (status !== "booked" && status !=="seated" && status!=="finished" && status!=="cancelled") return next({status:400, message:"Cannot update to an unknown reservation status"})
   const {reservation} = res.locals
   if (reservation.status === "finished") return next({status:400, message:`a finished reservation cannot be updated`})
   await service.changeStatus(reservation.reservation_id, status)
   res.status(200).json({data:{status:status}});
 }
 
+async function update(req,res,next) {
+  const {reservation} = res.locals
+  await service.update(reservation);
+  res.status(200).json({data: await service.read(reservation.reservation_id) })
+}
+
 module.exports = {
   list: asyncErrorBoundary(list),
   create: [asyncErrorBoundary(validateRezzo), validateStatus, asyncErrorBoundary(createRezzo)],
   read: [asyncErrorBoundary(ReservationExists),read],
-  update: [asyncErrorBoundary(ReservationExists),asyncErrorBoundary(changeStatus)]
+  update: [asyncErrorBoundary(ReservationExists),asyncErrorBoundary(changeStatus)],
+  updateForm: [ asyncErrorBoundary(ReservationExists), validateRezzo, asyncErrorBoundary(update)],
 };

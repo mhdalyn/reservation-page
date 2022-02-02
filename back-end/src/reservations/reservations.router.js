@@ -10,7 +10,7 @@ const controller = require("./reservations.controller");
 
 router.route("/").get(controller.list).post(controller.create).all(methodNotAllowed);
 
-router.route("/:reservation_id").get(controller.read).all(methodNotAllowed);
+router.route("/:reservation_id").get(controller.read).put(controller.updateForm).all(methodNotAllowed);
 
 router.route("/:reservation_id/status").put(controller.update).all(methodNotAllowed);
 

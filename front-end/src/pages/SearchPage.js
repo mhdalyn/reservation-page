@@ -25,6 +25,6 @@ export default function SearchPage() {
         <input name="mobile_number" type="tel" required placeholder="Enter a customer's phone number" value={mobile_number} onChange={changeHandler} />
         <button type="submit">Find</button>
         </form>
-        <ReservationTable reservations={reservations} nullMessage="No reservations found" />
+        <ReservationTable reservations={reservations} nullMessage="No reservations found" setReservations={setReservations} mobile_number={mobile_number} />
     </div>)
 }

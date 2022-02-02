@@ -21,6 +21,11 @@ function read(reservation_id) {
     return knex("reservations").select("*").where({ reservation_id }).first();
 }
 
+function update(reservation) {
+    const {reservation_id} = reservation;
+    return knex("reservations").select("*").where({reservation_id}).update(reservation)
+}
+
 function changeStatus(reservation_id, status) {
     return knex("reservations").where({ reservation_id }).update({ "status": status })
 }
@@ -30,5 +35,6 @@ module.exports = {
     list,
     create,
     read,
-    changeStatus
+    changeStatus,
+    update
 }

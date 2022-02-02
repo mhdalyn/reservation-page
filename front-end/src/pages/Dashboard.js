@@ -44,7 +44,7 @@ function Dashboard({ date }) {
       <button onClick={()=>setCurrentDate(previous(currentDate))}>Previous</button>
       <button onClick={()=>setCurrentDate(today())}>Today</button>
       <button onClick={()=>setCurrentDate(next(currentDate))}>Next</button>
-      <ReservationTable reservations={reservations} nullMessage="No reservations have been made for this date" />
+      <ReservationTable reservations={reservations} nullMessage="No reservations have been made for this date" setReservations={setReservations} date={currentDate} />
       <ErrorAlert error={tablesError} />
       <TablesTable tables={tables} loadDashboard={loadDashboard} setErr={setTablesError} />
     </main>
