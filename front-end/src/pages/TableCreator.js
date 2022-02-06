@@ -16,12 +16,14 @@ export default function TableCreator() {
     }
 
     async function submitHandler(event) {
+        const abortController = new AbortController();
         event.preventDefault();
         try {
             form.capacity = parseInt(form.capacity);
-            await createTable(form);
+            await createTable(form, abortController.signal);
             history.push(`/dashboard`)
         } catch (err) { setError(err) }
+        return () => abortController.abort();
     }
 
     async function cancelHandler(event) {

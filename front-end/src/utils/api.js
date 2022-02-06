@@ -70,7 +70,7 @@ export async function placeReservation(reservation, signal) {
     body: JSON.stringify({ data: reservation }),
     signal,
   }
-  return await fetchJson(url, options, {})
+  return await fetchJson(url, options, signal)
 }
 
 export async function createTable(table, signal) {
@@ -81,7 +81,7 @@ export async function createTable(table, signal) {
     body: JSON.stringify({ data: table }),
     signal,
   }
-  return await fetchJson(url, options, {})
+  return await fetchJson(url, options, signal)
 }
 
 /**
@@ -142,7 +142,7 @@ export async function editReservation(reservation, signal) {
     body: JSON.stringify({ data: reservation }),
     signal,
   }
-  return await fetchJson(url, options, {})
+  return await fetchJson(url, options, signal)
 }
 
 export async function cancelReservation(reservation_id, signal) {

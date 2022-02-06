@@ -22,17 +22,20 @@ export default function ReservationSeater() {
     }, [tables])
 
     async function submitHandler(event) {
+        const abortController = new AbortController();
         event.preventDefault();
         try {
-            await seatTable(reservation_id, selected);
+            await seatTable(reservation_id, selected, abortController.signal);
             history.push(`/dashboard`)
         } catch (err) { setError(err) }
+        return () => abortController.abort();
     }
     
     async function cancelHandler(event) {
         event.preventDefault();
         history.goBack();
     }
+
     const changeHandler = (event) => {
         setSelected(event.target.value)
     }

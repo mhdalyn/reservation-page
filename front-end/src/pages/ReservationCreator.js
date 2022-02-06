@@ -16,12 +16,14 @@ export default function ReservationCreator() {
     }
 
     async function submitHandler(event) {
+        const abortController = new AbortController();
         event.preventDefault();
         try {
             form.people = parseInt(form.people)
-            await placeReservation(form)
+            await placeReservation(form, abortController.signal)
             history.push(`/dashboard?date=${form.reservation_date}`)
         } catch (err) { setError(err) }
+        return () => abortController.abort();
     }
 
     async function cancelHandler(event) {

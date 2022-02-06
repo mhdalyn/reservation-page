@@ -3,12 +3,14 @@ import {finishTable} from "../../utils/api"
 
 export default function TablesTable({ tables, loadDashboard, setErr }) {
     async function finishHandler(event) {
+        const abortController = new AbortController();
         try {if(window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
             const table_id = event.target.id;
-            await finishTable(table_id);
+            await finishTable(table_id, abortController.signal);
             loadDashboard()
         }
         }catch (err) {setErr(err)}
+        return () => abortController.abort();
     }
 
     const tableContents = tables.map(table=>{ return (

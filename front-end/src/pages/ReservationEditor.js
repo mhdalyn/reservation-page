@@ -24,12 +24,14 @@ export default function ReservationEditor() {
         setForm({ ...form, [target.name]: target.value })
     }
     async function submitHandler(event) {
+        const abortController = new AbortController();
         event.preventDefault();
         try {
             form.people = parseInt(form.people)
-            await editReservation(form)
+            await editReservation(form, abortController.signal)
             history.push(`/dashboard?date=${form.reservation_date}`)
         } catch (err) { setError(err) }
+        return () => abortController.abort();
     }
 
     async function cancelHandler(event) {

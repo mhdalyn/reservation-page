@@ -28,7 +28,7 @@ function Dashboard({ date }) {
     listReservations({ date: currentDate }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
-    listTables()
+    listTables(abortController.signal)
       .then(setTables)
       .catch(setTablesError);
     return () => abortController.abort();
