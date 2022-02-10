@@ -6,9 +6,7 @@ import { useHistory } from "react-router";
  * Defines the reservations form component.
  * @param submitHandler
  * a function that tells the form what to do once submitted
- * @param cancelHandler
- * a function that handles what to do once the cancel button is pressed
- * @param form
+ * @param initialForm
  * tells the form what to render initially on page load
  * @returns {JSX.Element}
  */
