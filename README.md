@@ -14,13 +14,14 @@ This repository is set up as a monorepo, meaning that the front-end and back-end
 ### ERD
 
 ### Routes
-| Method | Routes                                   | Description                                                                                            |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| GET | `/reservations` | Contains all of the end-to-end tests. You will not need to make changes to the files in this folder.   |
-| GET | `/reservations/?date=YYYY-MM-DD` | A configuration file used by the end-to-end tests. You will not need to make changes to this file.     |
-| GET |`/reservations/?mobile_number=0000000000`                           | Defines the root application component. You will not need to make changes to this file.                |
-| POST |`./front-end/src/App.test.js`                      | Contains the tests for the root application component. You will not need to make changes to this file. |                             |
-
+ Method | Routes | Description                                                                                            |
+-|-|-
+| GET | `/reservations` | Lists all reservations for current date.   
+| POST | `/reservations` | Creates a new reservation.
+| GET | `/reservations/?date=YYYY-MM-DD` | Lists reservations for provided date.
+| GET | `/reservations/?mobile_number=0000000000` | Lists reservations whose phone number at least includes the searched number. Can be partial, such as an area code.
+| GET | `/reservations/:reservation_id` | Returns the reservation data for the given ID
+| PUT | `/reservations/:reservation_id` | Updates the reservation data for the given reservation ID
 
 ## INSTALLATION INSTRUCTIONS
 1. Fork and clone this repository.
