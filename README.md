@@ -19,20 +19,7 @@ This repository is set up as a monorepo, meaning that the front-end and back-end
 | GET | `/reservations` | Contains all of the end-to-end tests. You will not need to make changes to the files in this folder.   |
 | GET | `/reservations/?date=YYYY-MM-DD` | A configuration file used by the end-to-end tests. You will not need to make changes to this file.     |
 | GET |`/reservations/?mobile_number=0000000000`                           | Defines the root application component. You will not need to make changes to this file.                |
-| POST |`./front-end/src/App.test.js`                      | Contains the tests for the root application component. You will not need to make changes to this file. |
-| `./front-end/src/dashboard/Dashboard.js`           | Defines the Dashboard page.                                                                            |
-| `./front-end/src/index.js`                         | The main entry point for the React application.                                                        |
-| `./front-end/src/layout/ErrorAlert.js`             | Defines an error alert component that display only when an error is specified.                         |
-| `./front-end/src/layout/Layout.css`                | The css for the Layout component.                                                                      |
-| `./front-end/src/layout/Layout.js`                 | Defines the main layout of the application.                                                            |
-| `./front-end/src/layout/Menu.js`                   | Defines the menu for the application.                                                                  |
-| `./front-end/src/layout/NotFound.js`               | Defines the "Not found" component that is displayed when no route matches.                             |
-| `./front-end/src/layout/Routes.js`                 | Defines all the routes for the application.                                                            |
-| `./front-end/src/utils/api.js`                     | Defines the functions used to access the backend API                                                   |
-| `./front-end/src/utils/date-time.js`               | Defines functions to format date and time strings.                                                     |
-| `./front-end/src/utils/format-reservation-date.js` | Defines a function to format the date on a single reservation or an array of reservations.             |
-| `./front-end/src/utils/format-reservation-time.js` | Defines a function to format the time on a single reservation or an array of reservations.             |
-| `./front-end/src/utils/useQuery.js`                | Defines a custom hook to parse the query parameters from the URL.                                      |
+| POST |`./front-end/src/App.test.js`                      | Contains the tests for the root application component. You will not need to make changes to this file. |                             |
 
 
 ## INSTALLATION INSTRUCTIONS
