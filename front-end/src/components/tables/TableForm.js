@@ -1,5 +1,17 @@
 import React from "react";
 
+/**
+ * Defines the tables form component.
+ * @param submitHandler
+ * a function that tells the form what to do once submitted
+ * @param cancelHandler
+ * a function that handles what to do once the cancel button is pressed
+ * @param form
+ * tells the form what to render initially on page load
+ * @param changeHandler
+ * handles tracking of form values when changes are made
+ * @returns {JSX.Element}
+ */
 export default function TableForm({submitHandler, cancelHandler, form, changeHandler}) {
     return(<form onSubmit={submitHandler}>
                 <div>

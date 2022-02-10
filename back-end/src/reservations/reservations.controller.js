@@ -1,8 +1,10 @@
 const { formatAsDate, formatAsTime, today } = require("../date-time");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
+
 /**
  * List handler for reservation resources
+ * conditionally filters list by either mobile number or date based on which is provided
  */
 async function list(req, res, next) {
   const mobile_number = req.query.mobile_number;
@@ -16,6 +18,9 @@ async function list(req, res, next) {
   });}
 }
 
+/**
+ * Validates that reservation_id corresponds to a database entry
+ */
 async function ReservationExists(req,res,next) {
   const { reservation_id } = req.params;
   const foundReservation = await service.read(reservation_id)
@@ -29,12 +34,17 @@ async function ReservationExists(req,res,next) {
   });
 }
 
+/**
+ * Returns a validated reservation_id's database entry
+ */
 function read(req,res,next) {
   res.json({data:res.locals.reservation})
 }
 
+/**
+ * Validates that a reservation object's fields exist and meet business requirements
+ */
 async function validateRezzo(req, res, next) {
-
   const { data: reservation = {} } = req.body;
   const requiredFields = ["first_name", "last_name", "mobile_number", "reservation_date", "reservation_time", "people"]
   for (let field of requiredFields) {
@@ -72,18 +82,28 @@ async function validateRezzo(req, res, next) {
   res.locals.reservation = reservation;
   next();
 }
+
+/**
+ * Creates a database entry for a validated reservation object and returns the created entry
+ */
 async function createRezzo(req, res, next) {
   const { reservation } = res.locals
   const createdReservation = await service.create(reservation);
   res.status(201).json({ data: createdReservation });
 }
 
+/**
+ * Validates that a modified reservation's status exists and is in an acceptable state
+ */
 async function validateStatus(req,res,next) {
   const {status} =  res.locals.reservation
   if (status && status !== "booked") return next({status:400, message:`Cannot create reservation with ${status} status`})
   next();
 }
 
+/**
+ * Updates a reservation's status to a validated status
+ */
 async function changeStatus(req,res,next) {
   const {status} = req.body.data
   if (status !== "booked" && status !=="seated" && status!=="finished" && status!=="cancelled") return next({status:400, message:"Cannot update to an unknown reservation status"})
@@ -93,6 +113,9 @@ async function changeStatus(req,res,next) {
   res.status(200).json({data:{status:status}});
 }
 
+/**
+ * Updates a validated reservation object and returns the database entry after updating
+ */
 async function update(req,res,next) {
   const {reservation} = res.locals
   await service.update(reservation);

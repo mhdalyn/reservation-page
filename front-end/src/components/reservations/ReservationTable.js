@@ -2,6 +2,19 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { cancelReservation, listReservations } from "../../utils/api";
 
+/**
+ * Defines the Table of reservations component.
+ * @param reservations
+ * an array of reservations made for the restaurant
+ * @param nullMessage
+ * a message that displays when nothing else is rendered 
+ * @param setReservations
+ * passed in from parent component to set the page's error display to any errors encountered
+ * @param mobile_number
+ * @param date
+ * Only one of these will be passed in based on what page is using the component, conditionally determines what to render on the page
+ * @returns {JSX.Element}
+ */
 export default function ReservationTable({ reservations , nullMessage , setReservations , mobile_number, date}) {
     if (!reservations.length) return (<div>{nullMessage}</div>)
 
@@ -26,10 +39,10 @@ export default function ReservationTable({ reservations , nullMessage , setReser
             <td>{reservation.reservation_date}</td>
             <td>{reservation.reservation_time}</td>
             <td>{reservation.people}</td>
-            <td data-reservation-id-status={reservation.reservation_id} >{reservation.status}</td>
+            <td>{reservation.status}</td>
             {(reservation.status==="booked")?<Link to={`/reservations/${reservation_id}/seat`}> Seat </Link>:null}
             {(reservation.status!=="cancelled")?<><td><Link to={`/reservations/${reservation_id}/edit`} href={`/reservations/${reservation_id}/edit`} >Edit</Link></td>
-            <td><button data-reservation-id-cancel={reservation.reservation_id} id={reservation_id} onClick={cancelHandler} >Cancel</button></td></>:null}
+            <td><button id={reservation_id} onClick={cancelHandler} >Cancel</button></td></>:null}
         </tr>)})
     } else {
         tableContents = reservations.map(reservation=>{ 
@@ -42,10 +55,10 @@ export default function ReservationTable({ reservations , nullMessage , setReser
                 <td>{reservation.reservation_date}</td>
                 <td>{reservation.reservation_time}</td>
                 <td>{reservation.people}</td>
-                <td data-reservation-id-status={reservation.reservation_id} >{reservation.status}</td>
+                <td>{reservation.status}</td>
                 {(reservation.status==="booked")?<Link to={`/reservations/${reservation_id}/seat`}> Seat </Link>:null}
                 {(reservation.status!=="cancelled")?<><td><Link to={`/reservations/${reservation_id}/edit`} href={`/reservations/${reservation_id}/edit`} >Edit</Link></td>
-                <td><button data-reservation-id-cancel={reservation.reservation_id} id={reservation_id} onClick={cancelHandler} >Cancel</button></td></>:null}
+                <td><button id={reservation_id} onClick={cancelHandler} >Cancel</button></td></>:null}
             </tr>:null)})
     }
 

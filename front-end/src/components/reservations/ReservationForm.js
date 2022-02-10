@@ -1,7 +1,36 @@
 import React from "react";
+import { useState } from "react";
+import { useHistory } from "react-router";
 
-export default function ReservationForm({submitHandler, cancelHandler, form, changeHandler}) {
-    return(<form onSubmit={submitHandler}>
+/**
+ * Defines the reservations form component.
+ * @param submitHandler
+ * a function that tells the form what to do once submitted
+ * @param cancelHandler
+ * a function that handles what to do once the cancel button is pressed
+ * @param form
+ * tells the form what to render initially on page load
+ * @returns {JSX.Element}
+ */
+export default function ReservationForm({submitHandler, initialForm = {
+    first_name: "", last_name: "", mobile_number: "", reservation_date: "", reservation_time: "", people: "1"
+}}) {
+    const [form, setForm] = useState(initialForm)
+    const history = useHistory();
+
+    const changeHandler = ({ target }) => {
+        setForm({ ...form, [target.name]: target.value })
+    }
+
+    async function cancelHandler(event) {
+        event.preventDefault();
+        history.goBack();
+    }
+
+    return(<form onSubmit={(event) => {
+        event.preventDefault();
+        submitHandler(form);
+    }}>
                 <div>
                     <label htmlFor="first_name">First Name</label>
                     <input type="text" name="first_name" required placeholder="First Name" onChange={changeHandler} value={form.first_name} />

@@ -4,6 +4,11 @@ import ErrorAlert from "../layout/ErrorAlert";
 import { createTable } from "../utils/api";
 import TableForm from "../components/tables/TableForm";
 
+/**
+ * Defines the Table Creator page.
+ * 
+ * @returns {JSX.Element}
+ */
 export default function TableCreator() {
     const history = useHistory()
     const initialForm = {

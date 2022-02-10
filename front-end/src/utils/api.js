@@ -73,6 +73,16 @@ export async function placeReservation(reservation, signal) {
   return await fetchJson(url, options, signal)
 }
 
+/**
+ * Saves table to the database
+ * Form ensures that params are not null & further validation is done in back-end
+ * @param table
+ * the table to save
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise<table>}
+ * a promise that resolves the saved table
+ */
 export async function createTable(table, signal) {
   const url = `${API_BASE_URL}/tables`
   const options = {
@@ -85,11 +95,14 @@ export async function createTable(table, signal) {
 }
 
 /**
- * Retrieves all existing reservation.
- * @returns {Promise<[reservation]>}
- *  a promise that resolves to a possibly empty array of reservation saved in the database.
+ * Retrieves all existing reservations.
+ * @param params
+ * filter parameter to control what reservations are returned
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise<[reservations]>}
+ *  a promise that resolves to a possibly empty array of reservations saved in the database.
  */
-
 export async function listReservations(params, signal) {
   const url = new URL(`${API_BASE_URL}/reservations`);
   Object.entries(params).forEach(([key, value]) =>
@@ -100,11 +113,25 @@ export async function listReservations(params, signal) {
     .then(formatReservationTime);
 }
 
+/**
+ * Retrieves all existing tables.
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise<[tables]>}
+ *  a promise that resolves to a possibly empty array of tables saved in the database.
+ */
 export async function listTables(signal) {
   const url = new URL(`${API_BASE_URL}/tables`);
   return await fetchJson(url, { headers, signal }, [])
 }
 
+/**
+ * Retrieves an existing reservation.
+ * @param reservation_id
+ * used to determine which reservation is retrieved
+ * @returns {Promise<[reservation]>}
+ *  a promise that resolves to a reservation saved in the database.
+ */
 export async function readReservation(reservation_id, signal) {
   const url = new URL(`${API_BASE_URL}/reservations/${reservation_id}`)
   return await fetchJson(url, { headers, signal }, [])
@@ -112,6 +139,17 @@ export async function readReservation(reservation_id, signal) {
     .then(formatReservationTime);
 }
 
+/**
+ * Updates a reservation's status to seated and marks a table as occupied.
+ * @param reservation_id
+ * used to determine which reservation is being seated
+ * @param table_id
+ * used to determine which table is being seated at
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise}
+ *  a promise that resolves to an unused body.
+ */
 export async function seatTable(reservation_id, table_id, signal) {
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`)
   const options = {
@@ -123,6 +161,15 @@ export async function seatTable(reservation_id, table_id, signal) {
   return await fetchJson(url, options, signal)
 }
 
+/**
+ * Updates a reservation's status to finished and marks a table as vacant.
+ * @param table_id
+ * used to determine which table is being freed up
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise}
+ *  a promise that resolves to an unused body.
+ */
 export async function finishTable(table_id, signal) {
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
   const options = {
@@ -134,6 +181,15 @@ export async function finishTable(table_id, signal) {
   return await fetchJson(url, options, signal)
 }
 
+/**
+ * Updates a reservation.
+ * @param reservation
+ * used to determine which reservation is being changed
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise}
+ *  a promise that resolves to an unused body.
+ */
 export async function editReservation(reservation, signal) {
   const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}`
   const options = {
@@ -145,6 +201,15 @@ export async function editReservation(reservation, signal) {
   return await fetchJson(url, options, signal)
 }
 
+/**
+ * Updates a reservation's status to cancelled.
+ * @param reservation_id
+ * used to determine which reservation is being cancelled
+ * @param signal
+ * optional AbortController.signal
+ * @returns {Promise}
+ *  a promise that resolves to an unused body.
+ */
 export async function cancelReservation(reservation_id, signal) {
   const url = new URL(`${API_BASE_URL}/reservations/${reservation_id}/status`)
   const options = {

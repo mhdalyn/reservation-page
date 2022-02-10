@@ -4,6 +4,11 @@ import ErrorAlert from "../layout/ErrorAlert";
 import { seatTable, listTables} from "../utils/api";
 import SeaterForm from "../components/reservations/SeaterForm";
 
+/**
+ * Defines the Reservation Seater page.
+ * 
+ * @returns {JSX.Element}
+ */
 export default function ReservationSeater() {
     const { reservation_id } = useParams();
     const history = useHistory();

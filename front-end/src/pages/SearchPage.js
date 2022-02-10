@@ -3,7 +3,11 @@ import { useState } from "react";
 import ReservationTable from "../components/reservations/ReservationTable";
 import { listReservations } from "../utils/api";
 
-
+/**
+ * Defines the Search by phone # page.
+ * 
+ * @returns {JSX.Element}
+ */
 export default function SearchPage() {
     const [error, setError] = useState(null);
     const [reservations, setReservations] = useState([]);

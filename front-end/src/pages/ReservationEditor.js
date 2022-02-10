@@ -4,11 +4,16 @@ import ReservationForm from "../components/reservations/ReservationForm";
 import { editReservation, readReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
+/**
+ * Defines the Reservation Editor page.
+ * 
+ * @returns {JSX.Element}
+ */
 export default function ReservationEditor() {
     const { reservation_id } = useParams();
     const history = useHistory();
-    const [error, setError] = useState(null)
-    const [form, setForm] = useState({})
+    const [error, setError] = useState(null);
+    const [form, setForm] = useState(null);
 
     useEffect(() => {
         async function loadForm() {
@@ -20,12 +25,8 @@ export default function ReservationEditor() {
         loadForm();
     }, [reservation_id])
 
-    const changeHandler = ({ target }) => {
-        setForm({ ...form, [target.name]: target.value })
-    }
-    async function submitHandler(event) {
+    async function submitHandler(form) {
         const abortController = new AbortController();
-        event.preventDefault();
         try {
             form.people = parseInt(form.people)
             await editReservation(form, abortController.signal)
@@ -34,12 +35,8 @@ export default function ReservationEditor() {
         return () => abortController.abort();
     }
 
-    async function cancelHandler(event) {
-        event.preventDefault();
-        history.goBack();
-    }
     return (<div>
         <ErrorAlert error={error} />
-        <ReservationForm changeHandler={changeHandler} form={form} submitHandler={submitHandler} cancelHandler={cancelHandler} />
+        {form && <ReservationForm initialForm={form} submitHandler={submitHandler} />}
     </div>)
 }
